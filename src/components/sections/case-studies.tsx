@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useInView } from '@/hooks/use-in-view'
-import { caseStudies, type CaseStudy } from '@/lib/case-studies'
+import { caseStudies, formatPeriod, type CaseStudy } from '@/lib/case-studies'
 import { reveal } from '@/lib/reveal'
 import { cn } from '@/lib/utils'
 
@@ -60,7 +60,7 @@ export function CaseStudies() {
                 <span className="truncate">
                   <span className="text-kanagawa-green">$</span> cd {study.path}
                 </span>
-                <span className="shrink-0 tabular-nums">{study.period}</span>
+                <span className="shrink-0 tabular-nums">{formatPeriod(study, t('journey.present'))}</span>
               </span>
               <span className={cn('font-semibold tracking-tight', study.featured ? 'text-2xl' : 'text-xl')}>
                 {t(`caseStudies.items.${study.id}.title`)}
@@ -126,7 +126,7 @@ function CaseStudyDetails({ study, onDemo }: { study: CaseStudy; onDemo: (anchor
         <p className="pr-8 text-xs text-muted-foreground">
           <span className="text-kanagawa-green">$</span> cd {study.path}
           <span className="ml-2 tabular-nums">
-            · {study.org} · {study.period}
+            · {study.org} · {formatPeriod(study, t('journey.present'))}
           </span>
         </p>
         <DialogTitle className="pr-8 text-xl leading-tight font-semibold tracking-tight sm:text-2xl">

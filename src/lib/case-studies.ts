@@ -4,18 +4,22 @@ export type CaseStudy = {
   id: 'streaming' | 'devsuite' | 'provisioning' | 'gateway' | 'oxid'
   path: string
   org: string
-  period: string
+  start: number
+  end?: number
   stack: string[]
   demos: { key: DemoKey; anchor: string }[]
   featured?: boolean
 }
+
+export const formatPeriod = ({ start, end }: CaseStudy, present: string) =>
+  end === start ? `${start}` : `${start} - ${end ?? present}`
 
 export const caseStudies: CaseStudy[] = [
   {
     id: 'streaming',
     path: '~/weg/streaming-platform',
     org: 'WEG',
-    period: '2025 - now',
+    start: 2025,
     stack: ['Apache Kafka', 'Kafka Connect', 'Apache Flink', 'RabbitMQ', 'Kubernetes', 'Java', 'Quarkus', 'AWS'],
     demos: [{ key: 'arch', anchor: 'demo-streaming' }],
     featured: true,
@@ -24,7 +28,8 @@ export const caseStudies: CaseStudy[] = [
     id: 'devsuite',
     path: '~/weg/developers-suite',
     org: 'WEG',
-    period: '2023 - 2025',
+    start: 2023,
+    end: 2025,
     stack: ['TypeScript', 'Kubernetes', 'API governance'],
     demos: [{ key: 'ddd', anchor: 'demo-ddd' }],
   },
@@ -32,7 +37,8 @@ export const caseStudies: CaseStudy[] = [
     id: 'provisioning',
     path: '~/weg/self-service-infra',
     org: 'WEG',
-    period: '2023 - 2025',
+    start: 2023,
+    end: 2025,
     stack: ['Kubernetes', 'PostgreSQL', 'MongoDB', 'Redis', 'MinIO', 'CI/CD'],
     demos: [{ key: 'k8s', anchor: 'demo-kubernetes' }],
   },
@@ -40,7 +46,8 @@ export const caseStudies: CaseStudy[] = [
     id: 'gateway',
     path: '~/weg/api-gateway',
     org: 'WEG',
-    period: '2023 - 2025',
+    start: 2023,
+    end: 2025,
     stack: ['Kong', 'Kubernetes', 'Keycloak', 'OpenID Connect', 'OpenTelemetry', 'Grafana'],
     demos: [
       { key: 'gateway', anchor: 'demo-gateway' },
@@ -52,7 +59,8 @@ export const caseStudies: CaseStudy[] = [
     id: 'oxid',
     path: '~/thesis/oxid-gateway',
     org: 'Católica SC',
-    period: '2025',
+    start: 2025,
+    end: 2025,
     stack: ['Rust', 'Reverse proxy', 'API gateway', 'Performance'],
     demos: [{ key: 'gateway', anchor: 'demo-gateway' }],
   },

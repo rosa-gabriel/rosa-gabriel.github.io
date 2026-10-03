@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import en from '../src/i18n/locales/en.json' with { type: 'json' }
-import { caseStudies } from '../src/lib/case-studies.ts'
+import { caseStudies, formatPeriod } from '../src/lib/case-studies.ts'
 import { certificates } from '../src/lib/certificates.ts'
 import { journeyEntries, type JourneyEntry } from '../src/lib/journey.ts'
 import { email, githubUrl, googleSiteVerification, linkedinUrl, location, resumeFiles, siteUrl } from '../src/lib/profile.ts'
@@ -78,7 +78,7 @@ function renderHtml() {
             const item = en.caseStudies.items[study.id]
             return `
         <article>
-          <h3>${escape(item.title)} (${escape(study.org)}, ${escape(study.period)})</h3>
+          <h3>${escape(item.title)} (${escape(study.org)}, ${escape(formatPeriod(study, 'Present'))})</h3>
           <p>${escape(item.summary)}</p>
           <p>Context: ${escape(item.context)}</p>
           <p>Role: ${escape(item.role)}</p>
@@ -148,7 +148,7 @@ function renderMarkdown() {
     ...caseStudies.map((study) => {
       const item = en.caseStudies.items[study.id]
       return [
-        `### ${item.title} (${study.org}, ${study.period})`,
+        `### ${item.title} (${study.org}, ${formatPeriod(study, 'Present')})`,
         item.summary,
         `Context: ${item.context}`,
         `Role: ${item.role}`,
